@@ -24,7 +24,8 @@ the important files.
 
 ### Installation
 
-To be done
+Copy the sprinkles in your sprinkles folder (normally app/sprinkles).
+Add the "fileManager" line in your sprinkles.json.
 
 ### Used Components
  - [CKEditor](http://ckeditor.com/)
