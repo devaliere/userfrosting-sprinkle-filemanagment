@@ -1,0 +1,18 @@
+{
+    "name": "adm/filemanager",
+    "type": "sprinkle",
+	"description": "File Manager for UserFrosting.",
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name": "Renaud Devaliere",
+            "homepage": "https://adm.ninja"
+        }
+    ],
+    "version": "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "UserFrosting\\Sprinkle\\FileManager\\": "src/"
+        }
+    }
+}
