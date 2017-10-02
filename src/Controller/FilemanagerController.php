@@ -13,7 +13,18 @@ use UserFrosting\Sprinkle\Core\Facades\Debug;
 
 
 class FilemanagerController extends SimpleController
-{   
+{
+	
+	
+
+    public function displayPage(Request $request, Response $response, $args)
+    {
+	    // Problem as i should receive the path
+        return $this->ci->view->render($response, 'pages/filemanager.html.twig', [
+			'path' => $path
+        ]);
+    }
+    
     /**
      * returns a json message ether successful or failure.
      */
@@ -35,7 +46,7 @@ class FilemanagerController extends SimpleController
 		if (is_dir($target)) {
         return self::msg(True, $path.' exist');
 		}
-        // check file and show it (have to find the slim function for it (images and so) ....)
+        // check file and show it (have to find the slim function for it (images and so ....)
         if (file_exists($target)) {
          $file = @fopen($target,"rb");
 	     while(!feof($file)) {
