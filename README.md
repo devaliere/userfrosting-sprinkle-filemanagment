@@ -27,6 +27,20 @@ the important files.
 Copy the sprinkles in your sprinkles folder (normally app/sprinkles).
 Add the "fileManager" line in your sprinkles.json.
 
+### Working
+- /filemanager/ajax/test : Show the file(have to be modify to show images also for exemple)
+- /filemanager/ajax/page
+- /filemanager/browse/test
+- /filemanager/browse/page
+
+### Not Working (to continue)
+
+- /filemanager/ : Must debug the route with the correct path in
+- Make a new folder for each group
+- Add Authorisation for group admin to add/delete/create ...
+- add Authorisation for user to access folder/file
+
+
 ### Used Components
  - [CKEditor](http://ckeditor.com/)
  - [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
