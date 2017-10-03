@@ -16,13 +16,25 @@
 $app->group('/filemanager', function () {
 	
 
-    $this->get('', 'UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController:displayPage')
+    $this->get('', 'UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController:browse')
         ->setName('filemanager');
-    
-    $this->get('/browse/{path}', function($request, $response) {
-		$content = FilemanagerController::browse($app, $request->getAttribute('path'));
-		return $response->write($content);
+
+    $this->get('/browse/{path}', 'UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController:browse')
+        ->setName('browse');
+        
+	$this->get('/ajax', function($request, $response) {
+    	$path = $request->getAttribute('path');
+    	$target = __DIR__.'/../data/'.$path;
+
+		if (!file_exists($target))
+        	return $response->write(FilemanagerController::msg(False, "$target does not exist"));
+
+		if (is_dir($target))
+			return $response->write(FilemanagerController::get_content($app, $path));
+		else
+        	return $response->write(file_get_contents($target));
 	});
+
 
 	$this->get('/ajax/{path}', function($request, $response) {
     	$path = $request->getAttribute('path');

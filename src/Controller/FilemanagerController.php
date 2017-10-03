@@ -17,13 +17,7 @@ class FilemanagerController extends SimpleController
 	
 	
 
-    public function displayPage(Request $request, Response $response, $args)
-    {
-	    // Problem as i should receive the path
-        return $this->ci->view->render($response, 'pages/filemanager.html.twig', [
-			'path' => $path
-        ]);
-    }
+
     
     /**
      * returns a json message ether successful or failure.
@@ -40,11 +34,15 @@ class FilemanagerController extends SimpleController
      * returns the filemanager template with the given path set. if the path
      * relates to a file, the file is send to the client instead.
      */
-    public static function browse($app, $path) {
+    public function browse(Request $request, Response $response, $args) {
+	    
+	    $path = $request->getAttribute('path');
         $target = __DIR__.'/../../data/'.$path;
         // list files et renvoie vers displayPage (ERROR)
 		if (is_dir($target)) {
-        return self::msg(True, $path.' exist');
+        	return $this->ci->view->render($response, 'pages/filemanager.html.twig', [
+				'path' => $args->path
+			]);
 		}
         // check file and show it (have to find the slim function for it (images and so ....)
         if (file_exists($target)) {
