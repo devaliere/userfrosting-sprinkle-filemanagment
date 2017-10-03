@@ -13,12 +13,7 @@ use UserFrosting\Sprinkle\Core\Facades\Debug;
 
 
 class FilemanagerController extends SimpleController
-{
-	
-	
-
-
-    
+{   
     /**
      * returns a json message ether successful or failure.
      */
@@ -37,7 +32,7 @@ class FilemanagerController extends SimpleController
     public function browse(Request $request, Response $response, $args) {
 	    
 	    $path = $request->getAttribute('path');
-        $target = __DIR__.'/../../data/'.$path;
+        $target = __DIR__.'/../../data/'. $path;
         // list files et renvoie vers displayPage (ERROR)
 		if (is_dir($target)) {
         	return $this->ci->view->render($response, 'pages/filemanager.html.twig', [

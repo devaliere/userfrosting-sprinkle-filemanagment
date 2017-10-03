@@ -20,11 +20,11 @@ $app->group('/filemanager', function () {
         ->setName('filemanager');
 
 
-    $this->get('/browse[/{path}]', 'UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController:browse')
+    $this->get('/browse[/{path:.*}]', 'UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController:browse')
         ->setName('browse');
         
 
-	$this->get('/ajax[/{path}]', function($request, $response) {
+	$this->get('/ajax[/{path:.*}]', function($request, $response) {
     	$path = $request->getAttribute('path');
     	$target = __DIR__.'/../data/'.$path;
 
@@ -37,7 +37,7 @@ $app->group('/filemanager', function () {
         	return $response->write(file_get_contents($target));
 	});
 	
-	$this->post('/ajax[/{path}]', function($request, $response) {		
+	$this->post('/ajax[/{path:.*}]', function($request, $response) {		
         if ($_POST['type'] == 'folder')
             return $response->write(FilemanagerController::create_folder($path));
         else if ($_POST['type'] == 'file')
@@ -53,7 +53,7 @@ $app->group('/filemanager', function () {
     });
 
 
-    $this->delete('/ajax/{path}', function($request, $response) {
+    $this->delete('/ajax/{path:.*}', function($request, $response) {
 	    $path = $request->getAttribute('path');
          return $response->write(FilemanagerController::remove($path));
     });
