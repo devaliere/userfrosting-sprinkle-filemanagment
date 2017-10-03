@@ -19,24 +19,12 @@ $app->group('/filemanager', function () {
     $this->get('', 'UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController:browse')
         ->setName('filemanager');
 
-    $this->get('/browse/{path}', 'UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController:browse')
+
+    $this->get('/browse[/{path}]', 'UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController:browse')
         ->setName('browse');
         
-	$this->get('/ajax', function($request, $response) {
-    	$path = $request->getAttribute('path');
-    	$target = __DIR__.'/../data/'.$path;
 
-		if (!file_exists($target))
-        	return $response->write(FilemanagerController::msg(False, "$target does not exist"));
-
-		if (is_dir($target))
-			return $response->write(FilemanagerController::get_content($app, $path));
-		else
-        	return $response->write(file_get_contents($target));
-	});
-
-
-	$this->get('/ajax/{path}', function($request, $response) {
+	$this->get('/ajax[/{path}]', function($request, $response) {
     	$path = $request->getAttribute('path');
     	$target = __DIR__.'/../data/'.$path;
 
@@ -49,7 +37,7 @@ $app->group('/filemanager', function () {
         	return $response->write(file_get_contents($target));
 	});
 	
-	$this->post('/ajax/{path}', function($request, $response) {		
+	$this->post('/ajax[/{path}]', function($request, $response) {		
         if ($_POST['type'] == 'folder')
             return $response->write(FilemanagerController::create_folder($path));
         else if ($_POST['type'] == 'file')
@@ -63,6 +51,7 @@ $app->group('/filemanager', function () {
         else
             return $response->write(FilemanagerController::msg(False, 'unknown type'));
     });
+
 
     $this->delete('/ajax/{path}', function($request, $response) {
 	    $path = $request->getAttribute('path');
