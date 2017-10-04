@@ -62,19 +62,7 @@ function create_thumbnail($picture, $picture_thumb, $w) {
         imagepng($virtual_image, $picture_thumb);
     return true;
 }
-/**
- * returns a password hash.
- */
-function generate_hash($pass, $salt) {
-    return hash('sha256', $pass.$salt);
-}
-/**
- * returns a random salt.
- */
-function generate_salt() {
-    mt_srand(microtime(true) * 100000 + memory_get_usage(true));
-    return uniqid(mt_rand(), true);
-}
+
 /**
  * Takes a file size in bytes and returns a human readable filesize.
  */

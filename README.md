@@ -27,6 +27,20 @@ the important files.
 Copy the sprinkles in your sprinkles folder (normally app/sprinkles).
 Add the "fileManager" line in your sprinkles.json.
 
+To add the Filemanager on the menu, don't hesitate to add this code in your first sprinkles templates/navigation/sidebar-menu.html.twig
+```
+{% extends "@admin/navigation/sidebar-menu.html.twig" %}
+
+{% block navigation %}
+    
+    {{ parent() }}
+    
+    <li>
+        <a href="{{site.uri.public}}/filemanager"><i class="fa fa-rocket fa-fw"></i> <span>File Manager</span></a>
+    </li>
+{% endblock %}
+```
+
 ### Working
 - /filemanager/ajax/test : Show the file(have to be modify to show images also for exemple)
 - /filemanager/ajax/page

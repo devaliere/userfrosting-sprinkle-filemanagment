@@ -37,7 +37,9 @@ $app->group('/filemanager', function () {
         	return $response->write(file_get_contents($target));
 	});
 	
-	$this->post('/ajax[/{path:.*}]', function($request, $response) {		
+	$this->post('/ajax[/{path:.*}]', function($request, $response) {	
+		$path = $request->getAttribute('path');
+			
         if ($_POST['type'] == 'folder')
             return $response->write(FilemanagerController::create_folder($path));
         else if ($_POST['type'] == 'file')

@@ -41,21 +41,12 @@ class FilemanagerController extends SimpleController
 		}
         // check file and show it (have to find the slim function for it (images and so ....)
         if (file_exists($target)) {
-         $file = @fopen($target,"rb");
-	     while(!feof($file)) {
-	        print(@fread($file, 1024*8));
-	        if (connection_status()!=0) {
-	            @fclose($file);
-	            exit;
-	        }                      
-	     }
-	         
-	         @fclose($file);
+	        return self::readfile($target);
 	    }
          //  
         else {
         // error
-        return self::msg(False, $target.' does not exist');
+        	return self::msg(False, $target.' does not exist');
         }
     }
     
@@ -275,4 +266,12 @@ class FilemanagerController extends SimpleController
 
         return self::msg(True, 'file saved');
     }
+    
+    public static function readfile($target)
+    {
+     ob_clean();
+			ob_end_clean();
+			header('Content-Type: image/jpeg');
+			readfile($target);
+	}
 }
