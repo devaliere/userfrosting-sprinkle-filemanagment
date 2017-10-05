@@ -76,16 +76,17 @@ function show_content(path, files) {
     var f = files[i];
 
     if (f.folder) {
-      f.icon = 'icon-folder-close';
+      f.icon = 'fa fa-folder';
       f.name = $('<a />').attr('href', f.link).text(f.name).click(function (e) {
         e.preventDefault();
         browse($(e.target).attr('href'));
       });
       f.edit = '';
     } else {
-      f.icon = 'icon-file';
-      f.name = '<a href="filemanager/browse/' + f.link + '">' + f.name + '</a>';
-      f.edit = $('<a />').attr('href', f.link).html('<i class="icon-pencil"></i>').click(function (e) {
+	    
+      file_icon(f);
+      f.name = '<a href="filemanager/browse/' + f.link + '"  data-toggle="modal" data-target="#myModal" >' + f.name + '</a>';
+      f.edit = $('<a />').attr('href', f.link).html('<i class="fa fa-edit"></i>').click(function (e) {
         e.preventDefault();
         $.ajax({
           url: 'filemanager/ajax/' + $(e.target).parent().attr('href'),
@@ -104,7 +105,7 @@ function show_content(path, files) {
     }
 
     // move action
-    f.move = $('<a />').attr('href', f.link).html('<i class="icon-arrow-right"></i>').click(function (e) {
+    f.move = $('<a />').attr('href', f.link).html('<i class="fa fa-arrow-right"></i>').click(function (e) {
       e.preventDefault();
 
       $('div#move input#move-src').val($(e.target).parent().attr('href'));
@@ -113,7 +114,7 @@ function show_content(path, files) {
     });
 
     // remove action
-    f.remove = $('<a />').attr('href', f.link).html('<i class="icon-remove"></i>').click(function (e) {
+    f.remove = $('<a />').attr('href', f.link).html('<i class="fa fa-remove"></i>').click(function (e) {
       e.preventDefault();
       $('div#remove input#remove-path').val($(e.target).parent().attr('href'));
       $('div#remove').modal('show');
@@ -129,6 +130,34 @@ function show_content(path, files) {
       )
     );
   }
+}
+
+function file_icon(f) {
+	dot = f.link.lastIndexOf("."); 
+    extension = f.link.substr(dot,f.link.length); 
+    if(extension == '.png' || extension == '.jpg' || extension == '.gif')
+      f.icon = 'fa fa-file-image-o';
+    else if(extension == '.zip')
+      f.icon = 'fa fa-file-archive-o';
+    else if(extension == '.txt')
+      f.icon = 'fa fa-file-text-o';
+    else if(extension == '.php')
+      f.icon = 'fa fa-file-code-o';
+    else if(extension == '.mp3')
+      f.icon = 'fa fa-file-audio-o';
+    else if(extension == '.doc' || extension == '.docx')
+      f.icon = 'fa fa-file-word-o';
+    else if(extension == '.xls' || extension == '.xlsx')
+      f.icon = 'fa fa-file-excel-o';
+    else if(extension == '.pdf')
+      f.icon = 'fa fa-file-pdf-o';
+    else if(extension == '.mp4' || extension == '.mov')
+      f.icon = 'fa fa-file-movie-o';
+    else if(extension == '.pptx' || extension == '.ppt')
+      f.icon = 'fa fa-file-powerpoint-o';
+    else
+      f.icon = 'fa fa-file-o';
+
 }
 
 // -------------------------------------------------- PROGRESS BAR
@@ -257,3 +286,7 @@ $('div#tools a#refresh-button').click(function (e) {
 $('div#tools a#clear-msgbox-button').click(function (e) {
   $('div#msgbox').empty();
 });
+
+
+
+        

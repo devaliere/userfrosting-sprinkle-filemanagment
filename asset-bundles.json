@@ -28,21 +28,6 @@
                     "onCollision": "merge"
                 }
             }
-        },
-        "css/main": {
-            "styles" : [
-                "vendor/font-awesome/font-awesome.min.css"
-            ],
-            "options": {
-                "result": {
-                    "type": {
-                        "styles": "plain"
-                    }
-                },
-                "sprinkle": {
-                    "onCollision": "merge"
-                }
-            }
         }
     }
 }
