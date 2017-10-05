@@ -24,7 +24,8 @@ the important files.
 
 ### Installation
 
-Copy the sprinkles in your sprinkles folder (normally app/sprinkles).
+Copy the sprinkles in your sprinkles folder (normally app/sprinkles) or Use git to clone the sprinkles repo into a new folder. 
+
 Add the "fileManager" line in your sprinkles.json.
 
 To add the Filemanager on the menu, don't hesitate to add this code in your first sprinkles templates/navigation/sidebar-menu.html.twig
@@ -41,6 +42,8 @@ To add the Filemanager on the menu, don't hesitate to add this code in your firs
 {% endblock %}
 ```
 
+Don't forget to bake : ```php bakery bake```
+
 ### Working
 - /filemanager/ajax/test : Show the file(have to be modify to show images also for exemple)
 - /filemanager/ajax/page
@@ -49,15 +52,14 @@ To add the Filemanager on the menu, don't hesitate to add this code in your firs
 
 ### Not Working (to continue)
 
-- /filemanager/ : Must debug the route with the correct path in
+- Ajax
 - Make a new folder for each group
 - Add Authorisation for group admin to add/delete/create ...
-- add Authorisation for user to access folder/file
 
 
-### Used Components
+
+### New Used Components
  - [CKEditor](http://ckeditor.com/)
- - [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
 
 
 ### License
