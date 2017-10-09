@@ -13,7 +13,7 @@
     <a class="btn btn-app" id="clear-msgbox-button"><i class="fa fa-circle-o-notch"></i> Clear Messages</a>
         <a class="btn btn-app" id="upload-button"><i class="fa fa-upload"></i> Upload</a>
 </div>
-
+ 
 <!-- breadcrumb -->
 <ol class="breadcrumb" id="breadcrumb"></ol>
 
@@ -24,7 +24,7 @@
 <div id="editor" style="display: none;">
     <div class="row">
         <div class="col-xs-1">
-            <a class="btn btn-default" id="editor-close-button"><i class="icon-remove"></i> Close</a>
+            <a class="btn btn-default" id="editor-close-button"><i class="fa icon-remove"></i> Close</a>
         </div>
         <div class="col-xs-11">
             <input type="text" name="target" id="editor-target" class="form-control" />
@@ -99,7 +99,7 @@
             </div>
             <div class="modal-footer">
                 <a class="submit btn btn-danger" data-dismiss="modal"><i class="fa icon-ok"></i></a>
-                <a class="btn btn-default" data-dismiss="modal"><i class="btn fa-remove"></i></a>
+                <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i></a>
             </div>
         </div>
     </div>
@@ -114,6 +114,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data">
+                	{% include "forms/csrf.html.twig" %}
                     <input type="hidden" name="type" value="upload" />
                     <input type="hidden" name="path" id="upload-path" />
                     <input type="file" name="files[]" multiple />

@@ -45,17 +45,13 @@ To add the Filemanager on the menu, don't hesitate to add this code in your firs
 Don't forget to bake : ```php bakery bake```
 
 ### Working
-- /filemanager/ajax/test : Show the file(have to be modify to show images also for exemple)
-- /filemanager/ajax/page
-- /filemanager/browse/test
-- /filemanager/browse/page
 
-### Not Working (to continue)
+- File Manager
 
-- Ajax
+### To be done
+
 - Make a new folder for each group
 - Add Authorisation for group admin to add/delete/create ...
-
 
 
 ### New Used Components

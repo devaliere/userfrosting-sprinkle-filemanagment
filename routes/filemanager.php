@@ -10,8 +10,7 @@
  * Routes for filemanager related pages..
  */
  
-use UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController as FilemanagerController;
- 
+use UserFrosting\Sprinkle\FileManager\Controller\FilemanagerController as FilemanagerController; 
  
 $app->group('/filemanager', function () {
 	
@@ -37,12 +36,10 @@ $app->group('/filemanager', function () {
         	return $response->write(file_get_contents($target));
 	});
 
-	$this->post('/ajax[/{path:.*}]', function($request, $response) use ($app) {	
+	$this->post('/ajax[/{path:.*}]', function($request, $response) {	
 		$path = $request->getAttribute('path');
 		
-		
-			
-        if ($_POST['type'] == 'folder')
+		if ($_POST['type'] == 'folder')
             return $response->write(FilemanagerController::create_folder($path));
         else if ($_POST['type'] == 'file')
             return $response->write(FilemanagerController::create_file($path));
@@ -55,7 +52,6 @@ $app->group('/filemanager', function () {
         else
             return $response->write(FilemanagerController::msg(False, 'unknown type'));
             
-         
          return $response->write(FilemanagerController::msg(False, "$path does not exist"));
     });
 
