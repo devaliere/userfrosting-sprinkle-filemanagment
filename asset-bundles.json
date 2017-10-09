@@ -2,7 +2,8 @@
     "bundle": {
         "js/filemanager": {
             "scripts": [
-                "js/filemanager.js"
+                "js/filemanager.js",
+                "vendor/jquery.colorbox-min.js"
             ],
             "options": {
                 "result": {

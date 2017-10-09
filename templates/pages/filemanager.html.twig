@@ -11,7 +11,7 @@
     <a class="btn btn-app" id="new-folder-button"><i class="fa fa-file"></i> New folder</a>
     <a class="btn btn-app" id="refresh-button"><i class="fa fa-refresh"></i> Refresh</a>
     <a class="btn btn-app" id="clear-msgbox-button"><i class="fa fa-circle-o-notch"></i> Clear Messages</a>
-        <a class="btn btn-success btn-app" id="upload-button"><i class="fa fa-upload"></i> Upload</a>
+        <a class="btn btn-app" id="upload-button"><i class="fa fa-upload"></i> Upload</a>
 </div>
 
 <!-- breadcrumb -->
@@ -34,11 +34,7 @@
 </div>
 
 <!-- footnote -->
-<ul id="footnote" class="list-inline">
-    <li><i class="icon-pencil"></i> Edit</li>
-    <li><i class="icon-arrow-right"></i> Move / Rename</li>
-    <li><i class="icon-remove"></i> Remove</li>
-</ul>
+
 
 <!-- progress bar -->
 <div id="progress" class="progress progress-striped active hide">
@@ -61,8 +57,8 @@
                 <input type="text" class="form-control" id="new-path" />
             </div>
             <div class="modal-footer">
-                <a class="submit btn btn-primary" data-dismiss="modal"><i class="icon-ok"></i></a>
-                <a class="btn btn-default" data-dismiss="modal"><i class="icon-remove"></i></a>
+                <a class="submit btn btn-primary" data-dismiss="modal"><i class="fa icon-ok"></i></a>
+                <a class="btn btn-default" data-dismiss="modal"><i class="fa icon-remove"></i></a>
             </div>
         </div>
     </div>
@@ -82,8 +78,8 @@
                 <input type="text" class="form-control" id="move-dst" />
             </div>
             <div class="modal-footer">
-                <a class="submit btn btn-primary" data-dismiss="modal"><i class="icon-ok"></i></a>
-                <a class="btn btn-default" data-dismiss="modal"><i class="icon-remove"></i></a>
+                <a class="submit btn btn-primary" data-dismiss="modal"><i class="fa icon-ok"></i></a>
+                <a class="btn btn-default" data-dismiss="modal"><i class="fa icon-remove"></i></a>
             </div>
         </div>
     </div>
@@ -102,8 +98,8 @@
                 <p class="help-block">Only empty directories can be removed.</p>
             </div>
             <div class="modal-footer">
-                <a class="submit btn btn-danger" data-dismiss="modal"><i class="icon-ok"></i></a>
-                <a class="btn btn-default" data-dismiss="modal"><i class="icon-remove"></i></a>
+                <a class="submit btn btn-danger" data-dismiss="modal"><i class="fa icon-ok"></i></a>
+                <a class="btn btn-default" data-dismiss="modal"><i class="btn fa-remove"></i></a>
             </div>
         </div>
     </div>
@@ -125,21 +121,19 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <a class="submit btn btn-primary" data-dismiss="modal"><i class="icon-ok"></i></a>
-                <a class="btn btn-default" data-dismiss="modal"><i class="icon-remove"></i></a>
+                <a class="submit btn btn-primary" data-dismiss="modal"><i class="fa icon-ok"></i></a>
+                <a class="btn btn-default" data-dismiss="modal"><i class="fa icon-remove"></i></a>
             </div>
         </div>
     </div>
 </div>
 
 <!-- file manager scripts -->
-<script src="//code.jquery.com/jquery-2.2.4.min.js" ></script>
 {{ assets.js('js/filemanager') | raw }}
 
 <script type="text/javascript">
     var PATH = '{{ path|raw }}';
     browse(PATH);
 </script>
-
 
 {% endblock %}

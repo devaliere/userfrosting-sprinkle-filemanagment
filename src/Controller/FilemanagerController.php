@@ -41,7 +41,7 @@ class FilemanagerController extends SimpleController
 		}
         // check file and show it (have to find the slim function for it (images and so ....)
         if (file_exists($target)) {
-	        return self::readfile($target);
+	        return "<div style=\"min-width:700px;\">" . self::readfile($target) . "</div>";
 	    }
          //  
         else {

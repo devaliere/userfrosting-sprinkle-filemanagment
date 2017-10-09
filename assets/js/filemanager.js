@@ -85,7 +85,10 @@ function show_content(path, files) {
     } else {
 	    
       file_icon(f);
-      f.name = '<a href="filemanager/browse/' + f.link + '"  data-toggle="modal" data-target="#myModal" >' + f.name + '</a>';
+      if(f.icon == 'fa fa-file-archive-o')
+      	f.name = '<a href="filemanager/browse/' + f.link + '" download="' + f.link + '">' + f.name + '</a>';      
+	  else
+      	f.name = '<a href="filemanager/browse/' + f.link + '"  class="gallery" title="' + f.link + '">' + f.name + '</a>';      
       f.edit = $('<a />').attr('href', f.link).html('<i class="fa fa-edit"></i>').click(function (e) {
         e.preventDefault();
         $.ajax({
@@ -130,20 +133,24 @@ function show_content(path, files) {
       )
     );
   }
+  
+    $.colorbox.settings.opacity = 0.7;
+    $('a.gallery').colorbox();
 }
 
 function file_icon(f) {
 	dot = f.link.lastIndexOf("."); 
     extension = f.link.substr(dot,f.link.length); 
-    if(extension == '.png' || extension == '.jpg' || extension == '.gif')
+    
+    if($.inArray(extension,['.jpg','.jpeg','.png','.gif','.bmp','.apng','.tif','.tiff']) !== -1)
       f.icon = 'fa fa-file-image-o';
-    else if(extension == '.zip')
+    else if($.inArray(extension,['.zip','.rar','.7z','.tar','.gz','.bz2','.tgz']) !== -1)
       f.icon = 'fa fa-file-archive-o';
     else if(extension == '.txt')
       f.icon = 'fa fa-file-text-o';
-    else if(extension == '.php')
+    else if($.inArray(extension,['.php','.phtml','.php3','.php4','.php5','.phps','.htm','.html','.shtml','.xhtml']) !== -1)
       f.icon = 'fa fa-file-code-o';
-    else if(extension == '.mp3')
+    else if($.inArray(extension,['.mp3','.flac','.aac','.m4a','.m3u','.pls','.mpga','.ogg']) !== -1)
       f.icon = 'fa fa-file-audio-o';
     else if(extension == '.doc' || extension == '.docx')
       f.icon = 'fa fa-file-word-o';
@@ -151,7 +158,7 @@ function file_icon(f) {
       f.icon = 'fa fa-file-excel-o';
     else if(extension == '.pdf')
       f.icon = 'fa fa-file-pdf-o';
-    else if(extension == '.mp4' || extension == '.mov')
+    else if($.inArray(extension,['.avi','.mov','.mp4','.wmv','.mkv','.vob','.mpg']) !== -1)
       f.icon = 'fa fa-file-movie-o';
     else if(extension == '.pptx' || extension == '.ppt')
       f.icon = 'fa fa-file-powerpoint-o';
