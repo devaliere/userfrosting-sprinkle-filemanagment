@@ -67,8 +67,9 @@ function browse(path) {
 			if (result.status)
 	        	show_content(path, result.files);
 			else if(!path) {
-				
-    			data['type'] = 'folder';
+				var data = {
+					'type': "folder"
+				};
 				data[site.csrf.keys.name] = site.csrf.name;
 				data[site.csrf.keys.value] = site.csrf.value;
 				
