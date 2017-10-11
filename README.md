@@ -46,11 +46,10 @@ Don't forget to bake : ```php bakery bake```
 
 ### Working
 
-- File Manager
+- File Manager based on group (it create a folder in data)
 
 ### To be done
 
-- Make a new folder for each group
 - Add Authorisation for group admin to add/delete/create ...
 
 

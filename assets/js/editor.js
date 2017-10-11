@@ -1,5 +1,7 @@
 // -------------------------------------------------- EDITOR INIT
 $('div#editor textarea').ckeditor(function (textarea) {
+	
+	var group = GROUP;
 	var e = $(textarea).ckeditorGet();
 	e.getCommand('save').exec = function (editor) {
 		var data = {

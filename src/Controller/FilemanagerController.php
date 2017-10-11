@@ -17,6 +17,8 @@ class FilemanagerController extends SimpleController
     /**
      * returns a json message ether successful or failure.
      */
+    
+
     public static function msg($status, $msg)
     {
         return json_encode(array(
@@ -32,7 +34,8 @@ class FilemanagerController extends SimpleController
     public function browse(Request $request, Response $response, $args) {
 	    
 	    $path = $request->getAttribute('path');
-        $target = __DIR__.'/../../data/'. $path;
+        $target = __DIR__.'/../../data/' . $path;
+        
         // list files et renvoie vers displayPage (ERROR)
 		if (is_dir($target)) {
         	return $this->ci->view->render($response, 'pages/filemanager.html.twig', [
@@ -41,12 +44,14 @@ class FilemanagerController extends SimpleController
 		}
         // check file and show it (have to find the slim function for it (images and so ....)
         if (file_exists($target)) {
-	        return "<div style=\"min-width:700px;\">" . self::readfile($target) . "</div>";
+	        return "<div style=\"min-width:100px;\">" . self::readfile($target) . "</div>";
 	    }
          //  
         else {
+	        
+	       
         // error
-        	return self::msg(False, $target.' does not exist');
+        //	return self::msg(False, $target.' does not exist');
         }
     }
     

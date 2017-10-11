@@ -22,7 +22,9 @@ function add_msg(msg, context, type) {
  
 function set_breadcrumb() {
   // clear
-  	$('ol#breadcrumb').html('<li><a href="">data</a></li>');
+  
+  	var group = GROUP;
+  	$('ol#breadcrumb').html('<li><a href=""><i class="fa fa-home"></i> Home</a></li>');
 
   	// add parts
   	var parts = PATH.split('/');
@@ -51,16 +53,47 @@ function set_breadcrumb() {
  */
  
 function browse(path) {
+	
+	var group = GROUP;
+	
+	path = path.replace(group + '/' , '');
+
+	
 	$.ajax({
-    	url: 'filemanager/ajax/' + path,
+    	url: 'filemanager/ajax/' + group + '/' + path,
 		cache: false,
 		dataType: 'json',
 		success: function (result) {
-		if (result.status)
-        	show_content(path, result.files);
+			if (result.status)
+	        	show_content(path, result.files);
+			else if(!path) {
+				
+    			data['type'] = 'folder';
+				data[site.csrf.keys.name] = site.csrf.name;
+				data[site.csrf.keys.value] = site.csrf.value;
+				
+					$.ajax({
+				    	url: 'filemanager/ajax/' + group,
+						cache: false,
+						dataType: 'json',
+						data: data,
+						type: 'POST',
+						success: function (result) {
+							add_msg( group , 'BOOTING', 'alert-success');
+							browse(PATH);
+				    	},
+						error: function (jqXHR, status) {
+							add_msg(result.msg, 'ALERT', 'alert-danger');
+				    	}
+				  	});
+				
+				
+				
+				show_content(path, result.files);
+			}
 			else
-			add_msg(result.msg, 'PHP', 'alert-danger');
-    	},
+				add_msg(result.msg, 'ALERT', 'alert-danger');
+		},
 		error: function (jqXHR, status) {
 			add_msg(status, 'AJAX', 'alert-danger');
     	}
@@ -90,26 +123,33 @@ function show_content(path, files) {
     	}
     	else {
 			file_icon(f);
-			if(f.icon == 'fa fa-file-archive-o')
-				f.name = '<a href="filemanager/browse/' + f.link + '" download="' + f.link + '">' + f.name + '</a>';      
-			else
+			      
+			if(f.icon == 'fa fa-file-image-o'){
+				f.name = '<a href="filemanager/browse/' + f.link + '"  class="gallery" title="' + f.link + '">' + f.name + '</a>';   
+			}
+			else if($.inArray(f.icon, ['fa fa-file-text-o', 'fa fa-file-o', 'fa fa-file-code-o']) !== -1){
 				f.name = '<a href="filemanager/browse/' + f.link + '"  class="gallery" title="' + f.link + '">' + f.name + '</a>';      
-			f.edit = $('<a />').attr('href', f.link).html('<i class="fa fa-edit"></i>').click(function (e) {
-				e.preventDefault();
-		        $.ajax({
-		          url: 'filemanager/ajax/' + $(e.target).parent().attr('href'),
-		          cache: false,
-		          dataType: 'text',
-		          success: function (result) {
-			          $('div#editor textarea').val(result);
-					  $('div#editor input#editor-target').val($(e.target).parent().attr('href'));
-					  $('div#editor').show();
-		          },
-		          error: function (jqXHR, status) {
-			          add_msg(status, 'AJAX', 'alert-danger');
-		          }
-		        });
-	      });;
+				f.edit = $('<a />').attr('href', f.link).html('<i class="fa fa-edit"></i>').click(function (e) {
+					e.preventDefault();
+			        $.ajax({
+			          url: 'filemanager/ajax/' + $(e.target).parent().attr('href'),
+			          cache: false,
+			          dataType: 'text',
+			          success: function (result) {
+				          $('div#editor textarea').val(result);
+						  $('div#editor input#editor-target').val($(e.target).parent().attr('href'));
+						  $('div#editor').show();
+			          },
+			          error: function (jqXHR, status) {
+				          add_msg(status, 'AJAX', 'alert-danger');
+			          }
+			        });
+		      });;
+	      	}
+	      	
+	      	else {
+				f.name = '<a href="filemanager/browse/' + f.link + '" download="' + f.link + '">' + f.name + '</a>';
+			}
 	    }
 
 		// move action
@@ -117,7 +157,7 @@ function show_content(path, files) {
 			e.preventDefault();
 
 			$('div#move input#move-src').val($(e.target).parent().attr('href'));
-			$('div#move input#move-dst').val(PATH == '' ? '' : (PATH + '/'));
+			$('div#move input#move-dst').val(PATH == '' ? GROUP + '/' : (GROUP + '/' + PATH + '/'));
 			$('div#move').modal('show');
     	});
 
@@ -190,9 +230,10 @@ $('div#new a.submit').click(function (e) {
     };
     data[site.csrf.keys.name] = site.csrf.name;
     data[site.csrf.keys.value] = site.csrf.value;
+    var group = GROUP;
 	
 	$.ajax({
-    	url: 'filemanager/ajax/' + $('div#new input#new-path').val(),
+    	url: 'filemanager/ajax/' + group + '/' + $('div#new input#new-path').val(),
 		cache: false,
 		dataType: 'json',
 		data: data,
@@ -213,6 +254,7 @@ $('div#remove a.submit').click(function (e) {
     };
     data[site.csrf.keys.name] = site.csrf.name;
     data[site.csrf.keys.value] = site.csrf.value;
+     var group = GROUP;
     
 	$.ajax({
     	url: 'filemanager/ajax/' + $('div#remove input#remove-path').val(),
@@ -256,8 +298,10 @@ $('div#move a.submit').click(function (e) {
 });
 
 $('div#upload a.submit').click(function (e) {
-  	$.ajax({
-    	url: 'filemanager/ajax/' + $('div#upload input#upload-path').val(),
+    var group = GROUP;
+	
+	$.ajax({
+    	url: 'filemanager/ajax/' + group + '/' + $('div#upload input#upload-path').val(),
 		cache: false,
 		contentType: false,
 		processData: false,
